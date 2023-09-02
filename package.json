@@ -1,0 +1,33 @@
+{
+  "name": "xarvis-cli",
+  "version": "1.0.0",
+  "description": "A Command-Line Interface for generating production ready starter template.",
+  "main": "src/index.ts",
+  "bin": {
+    "xarvis": "dist/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "cli",
+    "generate-project"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thecodexhub/xarvis-cli.git"
+  },
+  "author": "Sandip Pramanik (@thecodexhub)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thecodexhub/xarvis-cli/issues"
+  },
+  "homepage": "https://github.com/thecodexhub/xarvis-cli#readme",
+  "devDependencies": {
+    "typescript": "^5.2.2"
+  }
+}
