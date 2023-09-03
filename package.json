@@ -27,7 +27,11 @@
     "url": "https://github.com/thecodexhub/xarvis-cli/issues"
   },
   "homepage": "https://github.com/thecodexhub/xarvis-cli#readme",
+  "dependencies": {
+    "chalk": "^4.1.2"
+  },
   "devDependencies": {
+    "@types/node": "^20.5.8",
     "typescript": "^5.2.2"
   }
 }
