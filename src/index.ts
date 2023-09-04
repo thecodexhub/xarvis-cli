@@ -3,8 +3,8 @@
 import { ArgsParser } from "./args-parser";
 import chalk from "chalk";
 
-const startXarvisCli = (args: string[]) => {
-  const command = ArgsParser.parseArgsInCommand(args);
+const startXarvisCli = async (args: string[]) => {
+  const command = await ArgsParser.parseArgsInCommand(args);
   const response = command.serializeResponse();
 
   if (response.severity === "error") {
@@ -15,4 +15,5 @@ const startXarvisCli = (args: string[]) => {
   console.log(response.message);
 };
 
+// xarvis create express-app
 startXarvisCli(process.argv);

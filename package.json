@@ -28,9 +28,12 @@
   },
   "homepage": "https://github.com/thecodexhub/xarvis-cli#readme",
   "dependencies": {
-    "chalk": "^4.1.2"
+    "arg": "^5.0.2",
+    "chalk": "^4.1.2",
+    "inquirer": "^8.2.6"
   },
   "devDependencies": {
+    "@types/inquirer": "^8.2.6",
     "@types/node": "^20.5.8",
     "typescript": "^5.2.2"
   }

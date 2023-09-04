@@ -7,8 +7,9 @@ export class ErrorCommand extends BaseCommand {
   }
 
   serializeResponse(): { message: string; severity: string | undefined } {
+    const errorArgs = this.additionalArgs.slice(2);
     return {
-      message: `Could not find command ${this.additionalArgs.join(" ")}`,
+      message: `Could not find command ${errorArgs.join(" ")}`,
       severity: "error",
     };
   }
