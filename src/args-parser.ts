@@ -1,52 +1,52 @@
-import arg from "arg";
-import { AboutCommand } from "./command/about-command";
-import { BaseCommand } from "./command/base-command";
-import { ErrorCommand } from "./command/error-command";
-import { VersionCommand } from "./command/version-command";
-import { Options } from "./options/options";
-import { Method, convertStringToMethod } from "./options/method";
-import { AppType, convertStringToAppType } from "./options/app-type";
-import { Template, convertStringToTemplate } from "./options/template";
-import { AssistCommand } from "./command/assist-command";
-import { OptionInquirer } from "./option-inquirer";
+import arg from 'arg';
+import { AboutCommand } from './command/about-command';
+import { BaseCommand } from './command/base-command';
+import { ErrorCommand } from './command/error-command';
+import { VersionCommand } from './command/version-command';
+import { Options } from './options/options';
+import { Method, convertStringToMethod } from './options/method';
+import { AppType, convertStringToAppType } from './options/app-type';
+import { Template, convertStringToTemplate } from './options/template';
+import { AssistCommand } from './command/assist-command';
+import { OptionInquirer } from './option-inquirer';
 
 export class ArgsParser {
   public static parseArgsInCommand = async (
-    rawArgs: string[]
+    rawArgs: string[],
   ): Promise<BaseCommand> => {
     let args: arg.Result<{
-      "--help": BooleanConstructor;
-      "--version": BooleanConstructor;
-      "--template": StringConstructor;
-      "-h": string;
-      "-v": string;
-      "-t": string;
+      '--help': BooleanConstructor;
+      '--version': BooleanConstructor;
+      '--template': StringConstructor;
+      '-h': string;
+      '-v': string;
+      '-t': string;
     }>;
 
     try {
       args = arg(
         {
-          "--help": Boolean,
-          "--version": Boolean,
-          "--template": String,
-          "-h": "--help",
-          "-v": "--version",
-          "-t": "--template",
+          '--help': Boolean,
+          '--version': Boolean,
+          '--template': String,
+          '-h': '--help',
+          '-v': '--version',
+          '-t': '--template',
         },
         {
           argv: rawArgs.slice(2),
-        }
+        },
       );
     } catch (_) {
       return new ErrorCommand(rawArgs);
     }
 
     let options: Options = {
-      help: args["--help"] || false,
-      version: args["--version"] || false,
+      help: args['--help'] || false,
+      version: args['--version'] || false,
       method: convertStringToMethod(args._[0]),
       appType: convertStringToAppType(args._[1]),
-      template: convertStringToTemplate(args["--template"]),
+      template: convertStringToTemplate(args['--template']),
       appName: args._[2],
     };
 
@@ -69,7 +69,7 @@ export class ArgsParser {
       // `This is not a valid command. Please try with <xarvis create express-app>`
       if (options.appType === AppType.NotSelected) {
         return new AssistCommand(
-          "This is not a valid command. Please try with <xarvis create express-app>"
+          'This is not a valid command. Please try with <xarvis create express-app>',
         );
       }
 

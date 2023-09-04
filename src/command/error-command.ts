@@ -1,4 +1,4 @@
-import { BaseCommand } from "./base-command";
+import { BaseCommand } from './base-command';
 
 export class ErrorCommand extends BaseCommand {
   constructor(public additionalArgs: string[]) {
@@ -9,8 +9,8 @@ export class ErrorCommand extends BaseCommand {
   serializeResponse(): { message: string; severity: string | undefined } {
     const errorArgs = this.additionalArgs.slice(2);
     return {
-      message: `Could not find command ${errorArgs.join(" ")}`,
-      severity: "error",
+      message: `Could not find command ${errorArgs.join(' ')}`,
+      severity: 'error',
     };
   }
 }

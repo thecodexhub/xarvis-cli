@@ -1,14 +1,14 @@
 enum Template {
-  NotSelected = "not-selected",
-  JavaScript = "javascript",
-  TypeScript = "typescript",
+  NotSelected = 'not-selected',
+  JavaScript = 'javascript',
+  TypeScript = 'typescript',
 }
 
 const convertStringToTemplate = (argValue: string | undefined): Template => {
   switch (argValue) {
-    case "javascript":
+    case 'javascript':
       return Template.JavaScript;
-    case "typescript":
+    case 'typescript':
       return Template.TypeScript;
     default:
       return Template.NotSelected;

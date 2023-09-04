@@ -1,4 +1,4 @@
-import { BaseCommand } from "./base-command";
+import { BaseCommand } from './base-command';
 
 export class AssistCommand extends BaseCommand {
   constructor(public message: string) {
