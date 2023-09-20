@@ -9,6 +9,6 @@ export class Options {
     public method: Method,
     public appType: AppType,
     public template: Template,
-    public appName: string,
+    public appName: string
   ) {}
 }

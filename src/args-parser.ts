@@ -11,9 +11,7 @@ import { AssistCommand } from './command/assist-command';
 import { OptionInquirer } from './option-inquirer';
 
 export class ArgsParser {
-  public static parseArgsInCommand = async (
-    rawArgs: string[],
-  ): Promise<BaseCommand> => {
+  public static parseArgsInCommand = async (rawArgs: string[]): Promise<BaseCommand> => {
     let args: arg.Result<{
       '--help': BooleanConstructor;
       '--version': BooleanConstructor;
@@ -35,7 +33,7 @@ export class ArgsParser {
         },
         {
           argv: rawArgs.slice(2),
-        },
+        }
       );
     } catch (_) {
       return new ErrorCommand(rawArgs);
@@ -68,9 +66,7 @@ export class ArgsParser {
       // If express-app is not mentioned, assist with
       // `This is not a valid command. Please try with <xarvis create express-app>`
       if (options.appType === AppType.NotSelected) {
-        return new AssistCommand(
-          'This is not a valid command. Please try with <xarvis create express-app>',
-        );
+        return new AssistCommand('This is not a valid command. Please try with <xarvis create express-app>');
       }
 
       // If template is not mentioned, ask the question.

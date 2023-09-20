@@ -3,9 +3,7 @@ import { Options } from './options/options';
 import { Template, convertStringToTemplate } from './options/template';
 
 export class OptionInquirer {
-  static promptForMissingOptions = async (
-    options: Options,
-  ): Promise<Options> => {
+  static promptForMissingOptions = async (options: Options): Promise<Options> => {
     const questions = [];
 
     if (!options.appName) {
@@ -35,9 +33,7 @@ export class OptionInquirer {
     const answers = await inquirer.prompt(questions);
 
     const template: Template =
-      options.template === Template.NotSelected
-        ? convertStringToTemplate(answers.template)
-        : options.template;
+      options.template === Template.NotSelected ? convertStringToTemplate(answers.template) : options.template;
 
     return new Options(
       options.help,
@@ -45,7 +41,7 @@ export class OptionInquirer {
       options.method,
       options.appType,
       template,
-      options.appName || answers.appName,
+      options.appName || answers.appName
     );
   };
 }
