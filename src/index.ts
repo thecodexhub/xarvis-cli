@@ -1,19 +1,20 @@
 #!/usr/bin/env node
 
-import { ArgsParser } from './args-parser';
 import chalk from 'chalk';
+import program from './program';
 
-const startXarvisCli = async (args: string[]) => {
-  const command = await ArgsParser.parseArgsInCommand(args);
-  const response = command.serializeResponse();
+program
+  .name('xarvis')
+  .description('🚀 A Command-Line Interface for generating production ready starter template.')
+  .version('v1.0.0', '-v, --version', 'Display the current version.')
+  .helpOption('-h, --help', 'Display the usage information.');
 
-  if (response.severity === 'error') {
-    console.log(chalk.red(response.message));
-    process.exit(1);
-  }
+program.showHelpAfterError();
 
-  console.log(response.message);
-};
+program.configureOutput({
+  outputError: (err, write) => write(chalk.red(`Error: ${err.replace('error: ', '')}`)),
+});
 
-// xarvis create express-app
-startXarvisCli(process.argv);
+program.configureHelp({ sortSubcommands: true });
+
+program.parse(process.argv);
