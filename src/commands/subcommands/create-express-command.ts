@@ -2,6 +2,8 @@ import chalk from 'chalk';
 import { Command, Option } from 'commander';
 import { CreateExpressConfig } from '../../config/create-express-config';
 import { inquireForMissingCreateExpressConfig } from '../../inquirer/create-express-inquirer';
+import { createExpressProject } from '../../tasks/create-express-task';
+import program from '../../program';
 
 /**
  * Represents the main command for creating a new Xarvis Express project.
@@ -46,7 +48,13 @@ createExpressCommand
 
     // Inquire for missing configuration details
     const createExpressConfig = await inquireForMissingCreateExpressConfig(initialConfig);
-    console.log(createExpressConfig.toString());
+
+    try {
+      await createExpressProject(createExpressConfig);
+    } catch (error) {
+      const errorMessage = (error as Error).message || 'Something unexpected occurred.';
+      program.error(`Error: ${errorMessage}`);
+    }
   });
 
 createExpressCommand.showHelpAfterError(true);

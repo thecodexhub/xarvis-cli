@@ -35,11 +35,13 @@
     "arg": "^5.0.2",
     "chalk": "^4.1.2",
     "commander": "^11.0.0",
-    "inquirer": "^8.2.6"
+    "inquirer": "^8.2.6",
+    "ncp": "^2.0.0"
   },
   "devDependencies": {
     "@types/inquirer": "^8.2.6",
     "@types/micromatch": "^4.0.2",
+    "@types/ncp": "^2.0.6",
     "@types/node": "^20.5.8",
     "@typescript-eslint/eslint-plugin": "^6.6.0",
     "@typescript-eslint/parser": "^6.6.0",
