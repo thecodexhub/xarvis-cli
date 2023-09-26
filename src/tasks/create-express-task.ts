@@ -3,10 +3,12 @@ import ncp from 'ncp';
 import path from 'path';
 import stream from 'stream';
 import { promisify } from 'util';
-import { CreateExpressConfig } from '../config/create-express-config';
 import Listr from 'listr';
-import { CreateExpressProjectContext, TaskFunction } from '../types';
 import execa from 'execa';
+import chalk from 'chalk';
+import { CreateExpressConfig } from '../config/create-express-config';
+import { OraUpdateRenderer } from '../renderer/ora-update-renderer';
+import { CreateExpressProjectContext, TaskFunction } from '../types';
 
 // Promisify the 'fs.access' method to check file system access.
 const accessAsync = promisify(fs.access);
@@ -48,21 +50,26 @@ const tasksListForCreateExpressProject = (
   installDependenciesWithYarn: TaskFunction,
   installDependenciesWithNpm: TaskFunction
 ): Listr<CreateExpressProjectContext> => {
-  return new Listr<CreateExpressProjectContext>([
+  return new Listr<CreateExpressProjectContext>(
+    [
+      {
+        title: 'Generating project files...',
+        task: generateProjectFilesTask,
+      },
+      {
+        title: 'Install package dependencies with Yarn',
+        task: installDependenciesWithYarn,
+      },
+      {
+        title: 'Install package dependencies with npm',
+        enabled: (context) => context.yarn === false,
+        task: installDependenciesWithNpm,
+      },
+    ],
     {
-      title: 'Generating project files...',
-      task: generateProjectFilesTask,
-    },
-    {
-      title: 'Install package dependencies with Yarn',
-      task: installDependenciesWithYarn,
-    },
-    {
-      title: 'Install package dependencies with npm',
-      enabled: (context) => context.yarn === false,
-      task: installDependenciesWithNpm,
-    },
-  ]);
+      renderer: OraUpdateRenderer,
+    }
+  );
 };
 
 /**
@@ -87,7 +94,7 @@ const generateProjectFilesTask = async (
       read.pipe(replaceStream).pipe(write);
     },
   });
-  task.title = 'Generated!';
+  task.title = 'Generated project files!';
 };
 
 /**
@@ -99,10 +106,12 @@ const generateProjectFilesTask = async (
 const installDependenciesWithYarn = async (
   context: CreateExpressProjectContext,
   task: Listr.ListrTaskWrapper<CreateExpressProjectContext>,
-  targetDirectory: string
+  targetDirectory: string,
+  projectName: string
 ) => {
   try {
     await execa('yarn', [], { cwd: targetDirectory });
+    task.title = `Installed dependencies with "yarn" in ./${projectName}`;
   } catch (error) {
     context.yarn = false;
     task.skip('Yarn is not available, install it via <npm install -g yarn>');
@@ -113,8 +122,13 @@ const installDependenciesWithYarn = async (
  * Installs project dependencies using NPM.
  * @param {string} targetDirectory - The directory path where the dependencies should be installed.
  */
-const installDependenciesWithNpm = async (targetDirectory: string) => {
+const installDependenciesWithNpm = async (
+  targetDirectory: string,
+  task: Listr.ListrTaskWrapper<CreateExpressProjectContext>,
+  projectName: string
+) => {
   await execa('npm', ['install'], { cwd: targetDirectory });
+  task.title = `Installed dependencies with "npm install" in ./${projectName}`;
 };
 
 /**
@@ -140,8 +154,8 @@ export const createExpressProject = async (config: CreateExpressConfig): Promise
 
   const createExpressTasks = tasksListForCreateExpressProject(
     (_, task) => generateProjectFilesTask(task, templateDirectory, targetDirectory, projectName, projectDescription),
-    (context, task) => installDependenciesWithYarn(context, task, targetDirectory),
-    () => installDependenciesWithNpm(targetDirectory)
+    (context, task) => installDependenciesWithYarn(context, task, targetDirectory, projectName),
+    (_, task) => installDependenciesWithNpm(targetDirectory, task, projectName)
   );
 
   try {
@@ -149,4 +163,6 @@ export const createExpressProject = async (config: CreateExpressConfig): Promise
   } catch (err) {
     throw new Error('Something unexpected occurred while running tasks');
   }
+
+  console.log(`\n${chalk.cyan.bold(`Generated a Xarvis Express app! ✨`)}`);
 };
