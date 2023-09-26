@@ -19,16 +19,8 @@
     "preset": "ts-jest",
     "testEnvironment": "node"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/thecodexhub/xarvis-express-ts.git"
-  },
-  "author": "Sandip Pramanik (@thecodexhub)",
+  "author": "Sandip Pramanik <thecodexhubofficial@gmail.com>",
   "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/thecodexhub/xarvis-express-ts/issues"
-  },
-  "homepage": "https://github.com/thecodexhub/xarvis-express-ts#readme",
   "dependencies": {
     "compression": "^1.7.4",
     "cors": "^2.8.5",

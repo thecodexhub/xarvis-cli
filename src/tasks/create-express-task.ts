@@ -13,6 +13,12 @@ import { CreateExpressProjectContext, TaskFunction } from '../types';
 // Promisify the 'fs.access' method to check file system access.
 const accessAsync = promisify(fs.access);
 
+// Promisify the `fs.readFile` method to read the entire contents of a file asynchronously.
+const readAsync = promisify(fs.readFile);
+
+// Promisify the `fs.readFile` method to write data to the file asynchronously.
+const writeAsync = promisify(fs.writeFile);
+
 // Promisify the 'ncp' (copy) method to perform file and directory copying.
 const copyAsync = promisify(ncp);
 
@@ -87,13 +93,28 @@ const generateProjectFilesTask = async (
   projectName: string,
   projectDescription: string
 ) => {
-  await copyAsync(templateDirectory, targetDirectory, {
+  const sourceDirectory = path.resolve(templateDirectory, 'template');
+  await copyAsync(sourceDirectory, targetDirectory, {
     clobber: false,
     transform: (read: NodeJS.ReadableStream, write: NodeJS.WritableStream) => {
       const replaceStream = transformTemplateWithConfig(projectName, projectDescription);
       read.pipe(replaceStream).pipe(write);
     },
   });
+
+  const extraFilePath = path.resolve(templateDirectory, 'extra.json');
+  const data = await readAsync(extraFilePath, { encoding: 'utf-8' });
+  const fileContent: { file: string; content: string }[] = JSON.parse(data);
+
+  for (const item of fileContent) {
+    const { file, content } = item;
+
+    const destinationFile = path.resolve(targetDirectory, file);
+    const decodedContent = Buffer.from(content, 'base64').toString();
+
+    await writeAsync(destinationFile, decodedContent);
+  }
+
   task.title = 'Generated project files!';
 };
 
