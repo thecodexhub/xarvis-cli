@@ -49,12 +49,14 @@ const transformTemplateWithConfig = (projectName: string, projectDescription: st
  * @param {TaskFunction} generateProjectFilesTask - A Listr task to generate project files.
  * @param {TaskFunction} installDependenciesWithYarn - A Listr task to install package dependencies with Yarn.
  * @param {TaskFunction} installDependenciesWithNpm - A Listr task to install package dependencies with npm.
+ * @param {string} projectName - The name of the xarvis project
  * @returns A Listr task list for creating an Express project.
  */
 const tasksListForCreateExpressProject = (
   generateProjectFilesTask: TaskFunction,
   installDependenciesWithYarn: TaskFunction,
-  installDependenciesWithNpm: TaskFunction
+  installDependenciesWithNpm: TaskFunction,
+  projectName: string
 ): Listr<CreateExpressProjectContext> => {
   return new Listr<CreateExpressProjectContext>(
     [
@@ -63,11 +65,11 @@ const tasksListForCreateExpressProject = (
         task: generateProjectFilesTask,
       },
       {
-        title: 'Install package dependencies with Yarn',
+        title: `Installing dependencies with "yarn" in ./${projectName}...`,
         task: installDependenciesWithYarn,
       },
       {
-        title: 'Install package dependencies with npm',
+        title: `Installing dependencies with "npm install" in ./${projectName}...`,
         enabled: (context) => context.yarn === false,
         task: installDependenciesWithNpm,
       },
@@ -87,7 +89,6 @@ const tasksListForCreateExpressProject = (
  * @param {string} projectDescription - The description of the xarvis project.
  */
 const generateProjectFilesTask = async (
-  task: Listr.ListrTaskWrapper<CreateExpressProjectContext>,
   templateDirectory: string,
   targetDirectory: string,
   projectName: string,
@@ -114,8 +115,6 @@ const generateProjectFilesTask = async (
 
     await writeAsync(destinationFile, decodedContent);
   }
-
-  task.title = 'Generated project files!';
 };
 
 /**
@@ -127,15 +126,13 @@ const generateProjectFilesTask = async (
 const installDependenciesWithYarn = async (
   context: CreateExpressProjectContext,
   task: Listr.ListrTaskWrapper<CreateExpressProjectContext>,
-  targetDirectory: string,
-  projectName: string
+  targetDirectory: string
 ) => {
   try {
     await execa('yarn', [], { cwd: targetDirectory });
-    task.title = `Installed dependencies with "yarn" in ./${projectName}`;
   } catch (error) {
     context.yarn = false;
-    task.skip('Yarn is not available, install it via <npm install -g yarn>');
+    task.skip('Yarn is not available, install it using <npm install -g yarn>');
   }
 };
 
@@ -143,13 +140,8 @@ const installDependenciesWithYarn = async (
  * Installs project dependencies using NPM.
  * @param {string} targetDirectory - The directory path where the dependencies should be installed.
  */
-const installDependenciesWithNpm = async (
-  targetDirectory: string,
-  task: Listr.ListrTaskWrapper<CreateExpressProjectContext>,
-  projectName: string
-) => {
+const installDependenciesWithNpm = async (targetDirectory: string) => {
   await execa('npm', ['install'], { cwd: targetDirectory });
-  task.title = `Installed dependencies with "npm install" in ./${projectName}`;
 };
 
 /**
@@ -174,9 +166,10 @@ export const createExpressProject = async (config: CreateExpressConfig): Promise
   }
 
   const createExpressTasks = tasksListForCreateExpressProject(
-    (_, task) => generateProjectFilesTask(task, templateDirectory, targetDirectory, projectName, projectDescription),
-    (context, task) => installDependenciesWithYarn(context, task, targetDirectory, projectName),
-    (_, task) => installDependenciesWithNpm(targetDirectory, task, projectName)
+    (_, __) => generateProjectFilesTask(templateDirectory, targetDirectory, projectName, projectDescription),
+    (context, task) => installDependenciesWithYarn(context, task, targetDirectory),
+    (_, __) => installDependenciesWithNpm(targetDirectory),
+    projectName
   );
 
   try {
