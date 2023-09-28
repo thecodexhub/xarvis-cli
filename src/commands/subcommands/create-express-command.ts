@@ -4,6 +4,7 @@ import { CreateExpressConfig } from '../../config/create-express-config';
 import { inquireForMissingCreateExpressConfig } from '../../inquirer/create-express-inquirer';
 import { createExpressProject } from '../../tasks/create-express-task';
 import program from '../../program';
+import { showProjectLogoHeader } from '../../utils/project-logo-header';
 
 /**
  * Represents the main command for creating a new Xarvis Express project.
@@ -48,6 +49,9 @@ createExpressCommand
 
     // Inquire for missing configuration details
     const createExpressConfig = await inquireForMissingCreateExpressConfig(initialConfig);
+
+    // Show Project Logo
+    await showProjectLogoHeader();
 
     try {
       await createExpressProject(createExpressConfig);

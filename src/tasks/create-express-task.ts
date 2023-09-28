@@ -109,10 +109,10 @@ const generateProjectFilesTask = async (
 
   for (const item of fileContent) {
     const { file, content } = item;
-
     const destinationFile = path.resolve(targetDirectory, file);
-    const decodedContent = Buffer.from(content, 'base64').toString();
 
+    // Decode the file content. The file content is base-64 encoded string.
+    const decodedContent = Buffer.from(content, 'base64').toString();
     await writeAsync(destinationFile, decodedContent);
   }
 };
