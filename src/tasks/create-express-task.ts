@@ -178,5 +178,19 @@ export const createExpressProject = async (config: CreateExpressConfig): Promise
     throw new Error('Something unexpected occurred while running tasks');
   }
 
-  console.log(`\n${chalk.cyan.bold(`Generated a Xarvis Express app! ✨`)}`);
+  const setupDocsLink =
+    config.getTemplate() === 'javascript'
+      ? 'https://github.com/thecodexhub/xarvis-express-js#readme'
+      : 'https://github.com/thecodexhub/xarvis-express-ts#readme';
+
+  console.log(`\n${chalk.magenta.bold(`Generated a Xarvis Express app! ✨`)}`);
+
+  console.log(`\nNext Steps:`);
+  console.log(`===========`);
+  console.log(`  * Navigate to project folder:    ${chalk.yellow(`cd ./${projectName}`)}`);
+  console.log(`  * Project setup & configuration: ${chalk.cyan(setupDocsLink)}`);
+  console.log(`  * Start the development server:  ${chalk.yellow(`npm run dev`)}`);
+
+  console.log(`\nStay updated: ${chalk.cyan('https://github.com/thecodexhub/xarvis-cli')}`);
+  console.log(`Thanks for using Xarvis!\n`);
 };
