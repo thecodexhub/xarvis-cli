@@ -37,7 +37,8 @@ Creates a new Xarvis Express project in the specified directory.
 Options:
   -o, --output-directory  The optional desired output directory when creating a new project.
   -t, --template          The template for this project. (choices: "javascript", "typescript")
-      --description       The description for this new project. (default: "An Express starter project created by Xarvis CLI.")
+      --description       The description for this new project. (default: "An Express starter project
+                          created by Xarvis CLI.")
   -h, --help              Display the usage information.
 ```
 
