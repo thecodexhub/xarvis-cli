@@ -1,10 +1,14 @@
 # Xarvis CLI
 
+![Xarvis CLI](https://github.com/thecodexhub/xarvis-cli/actions/workflows/ci.yml/badge.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![npm version](https://badge.fury.io/js/xarvis-cli.svg)](https://www.npmjs.com/package/xarvis-cli)
+
 A Command-Line Interface for generating a production-ready starter template.
 
 Developed with 💜 by [thecodexhub](https://github.com/thecodexhub)
 
-<!-- <img src="assets/images/recording.gif?raw=true" alt="xarvis cli"> -->
+<img src="assets/images/recording.gif?raw=true" alt="xarvis cli">
 
 ## Supported Templates
 
@@ -13,15 +17,19 @@ Developed with 💜 by [thecodexhub](https://github.com/thecodexhub)
 
 ## Installation
 
+The below command will make the xarvis command available globally, allowing you to use it from anywhere in your terminal.
+
 ```
 $ npm install -g xarvis-cli
 ```
 
 ## Commands
 
-### `xarvis -h` or `xarvis --help` - Display the usage information.
+### `xarvis -h` or `xarvis --help`
 
-```
+**Display the usage information.**
+
+```shell
 Usage: xarvis <command> [arguments]
 
 🚀 A Command-Line Interface for generating production ready starter template.
@@ -35,9 +43,11 @@ Commands:
   help [command]  Display the usage information.
 ```
 
-### `xarvis create express-app` - Creates a new Xarvis Express project in the specified directory.
+### `xarvis create express-app`
 
-```
+**Creates a new Xarvis Express project in the specified directory.**
+
+```shell
 Usage: xarvis create express-app <project-name> [arguments]
 
 Creates a new Xarvis Express project in the specified directory.
@@ -75,6 +85,6 @@ $ xarvis create express-app -h
 
 ## License
 
-[MIT](LICENSE)
+The project is released under the [MIT License](LICENSE). Learn more about it, [here](https://opensource.org/license/mit/).
 
 <pre align="center">T h a n k s   f o r   u s i n g   X a r v i s   C L I ! ✨</pre>
