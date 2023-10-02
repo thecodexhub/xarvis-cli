@@ -6,7 +6,7 @@ import program from './program';
 program
   .name('xarvis')
   .description('🚀 A Command-Line Interface for generating production ready starter template.')
-  .version('v1.0.0', '-v, --version', 'Display the current version.')
+  .version('v0.1.2-pre-release', '-v, --version', 'Display the current version.')
   .usage('<command> [arguments]')
   .helpOption('-h, --help', 'Display the usage information.');
 

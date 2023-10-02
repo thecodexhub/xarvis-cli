@@ -1,6 +1,6 @@
 {
   "name": "xarvis-cli",
-  "version": "0.1.1-pre-release",
+  "version": "0.1.2-pre-release",
   "description": "A Command-Line Interface for generating production ready starter template.",
   "main": "dist/index.js",
   "bin": {
