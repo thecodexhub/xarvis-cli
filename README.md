@@ -4,6 +4,8 @@ A Command-Line Interface for generating a production-ready starter template.
 
 Developed with 💜 by [thecodexhub](https://github.com/thecodexhub)
 
+<img src="assets/images/recording.gif?raw=true" alt="xarvis cli">
+
 ## Supported Templates
 
 - [xarvis-express-js](https://github.com/thecodexhub/xarvis-express-js) - A Xarvis Express app with JavaScript: (See [features](https://github.com/thecodexhub/xarvis-express-js#features) list)
@@ -64,5 +66,9 @@ $ xarvis create -h
 # Displays usage information for `xarvis create express-app` command
 $ xarvis create express-app -h
 ```
+
+## License
+
+[MIT](LICENSE)
 
 <pre align="center">T h a n k s   f o r   u s i n g   X a r v i s   C L I ! ✨</pre>
