@@ -4,12 +4,18 @@ A Command-Line Interface for generating a production-ready starter template.
 
 Developed with 💜 by [thecodexhub](https://github.com/thecodexhub)
 
-<img src="assets/images/recording.gif?raw=true" alt="xarvis cli">
+<!-- <img src="assets/images/recording.gif?raw=true" alt="xarvis cli"> -->
 
 ## Supported Templates
 
 - [xarvis-express-js](https://github.com/thecodexhub/xarvis-express-js) - A Xarvis Express app with JavaScript: (See [features](https://github.com/thecodexhub/xarvis-express-js#features) list)
 - [xarvis-express-ts](https://github.com/thecodexhub/xarvis-express-ts) - A Xarvis Express app with TypeScript: (See [features](https://github.com/thecodexhub/xarvis-express-ts#features) list)
+
+## Installation
+
+```
+$ npm install -g xarvis-cli
+```
 
 ## Commands
 
