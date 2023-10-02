@@ -1,8 +1,8 @@
 {
   "name": "xarvis-cli",
-  "version": "0.1.0-pre-release",
+  "version": "0.1.1-pre-release",
   "description": "A Command-Line Interface for generating production ready starter template.",
-  "main": "src/index.ts",
+  "main": "dist/index.js",
   "bin": {
     "xarvis": "dist/index.js"
   },
@@ -28,7 +28,15 @@
   },
   "keywords": [
     "cli",
-    "generate-project"
+    "generate-project",
+    "starter-template",
+    "project-generator"
+  ],
+  "files": [
+    "dist",
+    "templates",
+    "README.md",
+    "LICENSE"
   ],
   "repository": {
     "type": "git",
