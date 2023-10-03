@@ -40,7 +40,7 @@ export class CreateExpressConfig {
    * @returns {string} The description of the project
    */
   getDescription(): string {
-    return this.description ?? 'An Express project created by Xarvis CLI.';
+    return this.description ?? CreateExpressConfig.defaultDescription;
   }
 
   /**
