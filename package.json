@@ -11,8 +11,8 @@
   },
   "scripts": {
     "build": "npx tsc",
-    "test": "npx jest -i --colors --verbose --detectOpenHandles --passWithNoTests",
-    "test:watch": "npx jest -i --watchAll --passWithNoTests --passWithNoTests",
+    "test": "npx jest -i --colors --detectOpenHandles --coverage",
+    "test:watch": "npx jest -i --watchAll --verbose",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "prettier": "prettier --check **/*.ts",

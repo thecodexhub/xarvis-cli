@@ -30,7 +30,7 @@ const copyAsync = promisify(ncp);
  */
 const transformTemplateWithConfig = (projectName: string, projectDescription: string): stream.Transform => {
   return new stream.Transform({
-    transform(chunk, encoding, callback) {
+    transform(chunk, _, callback) {
       let modifiedChunk = chunk.toString('utf8');
 
       // Replace project name and project description
@@ -180,8 +180,8 @@ export const createExpressProject = async (config: CreateExpressConfig): Promise
 
   const setupDocsLink =
     config.getTemplate() === 'javascript'
-      ? 'https://github.com/thecodexhub/xarvis-express-js#readme'
-      : 'https://github.com/thecodexhub/xarvis-express-ts#readme';
+      ? 'https://github.com/thecodexhub/xarvis-express-js#project-setup'
+      : 'https://github.com/thecodexhub/xarvis-express-ts#project-setup';
 
   console.log(`\n${chalk.magenta.bold(`Generated a Xarvis Express app! ✨`)}`);
 
