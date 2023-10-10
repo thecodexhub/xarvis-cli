@@ -43,9 +43,16 @@ createExpressCommand
   .option('-o, --output-directory [destination]', 'The optional desired output directory when creating a new project.')
   .addOption(templateOption)
   .addOption(descrptionOption)
+  .option('--skip-git', 'Whether or not to skip initializing git', false)
   .action(async (command, options) => {
     // Create an initial configuration object
-    const initialConfig = new CreateExpressConfig(command, options.outputDirectory, options.description, options.template);
+    const initialConfig = new CreateExpressConfig(
+      command,
+      options.outputDirectory,
+      options.description,
+      options.template,
+      options.skipGit
+    );
 
     // Inquire for missing configuration details
     const createExpressConfig = await inquireForMissingCreateExpressConfig(initialConfig);

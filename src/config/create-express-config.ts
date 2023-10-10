@@ -6,12 +6,14 @@ export class CreateExpressConfig {
    * @param {string} [outputDirectory] -  The optional desired output directory when creating a new project.
    * @param {string} [description] - The description for this xarvis project.
    * @param {string} [template] - The template for this project.
+   * @param {boolean} [skipGit] - Whether or not to initialize git in the xarvis project.
    */
   constructor(
     public projectName: string,
     public outputDirectory?: string,
     public description?: string,
-    public template?: string
+    public template?: string,
+    public skipGit: boolean = false
   ) {}
 
   /** Deafult description for Xarvis Express project. */
@@ -77,7 +79,7 @@ export class CreateExpressConfig {
   toString(): string {
     return (
       `CreateExpressConfig(projectName: ${this.getProjectName()}, outputDirectory: ${this.getOutputDirectory()}, ` +
-      `description: ${this.getDescription()}, template: ${this.getTemplate()})`
+      `description: ${this.getDescription()}, template: ${this.getTemplate()}, skipGit: ${this.skipGit})`
     );
   }
 
@@ -97,12 +99,14 @@ export class CreateExpressConfig {
     outputDirectory?: string;
     description?: string;
     template?: string;
+    skipGit?: boolean;
   }): CreateExpressConfig {
     return new CreateExpressConfig(
       options.projectName ?? this.projectName,
       options.outputDirectory ?? this.outputDirectory,
       options.description ?? this.description,
-      options.template ?? this.template
+      options.template ?? this.template,
+      options.skipGit ?? this.skipGit
     );
   }
 }

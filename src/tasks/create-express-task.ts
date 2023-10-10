@@ -49,6 +49,7 @@ const transformTemplateWithConfig = (projectName: string, projectDescription: st
  * @param {TaskFunction} generateProjectFilesTask - A Listr task to generate project files.
  * @param {TaskFunction} installDependenciesWithYarn - A Listr task to install package dependencies with Yarn.
  * @param {TaskFunction} installDependenciesWithNpm - A Listr task to install package dependencies with npm.
+ * @param {TaskFunction} runFinalConfigurations - A Listr task to init git and setup husky for pre-commit hook.
  * @param {string} projectName - The name of the xarvis project
  * @returns A Listr task list for creating an Express project.
  */
@@ -56,7 +57,9 @@ const tasksListForCreateExpressProject = (
   generateProjectFilesTask: TaskFunction,
   installDependenciesWithYarn: TaskFunction,
   installDependenciesWithNpm: TaskFunction,
-  projectName: string
+  runFinalConfigurations: TaskFunction,
+  projectName: string,
+  config: CreateExpressConfig
 ): Listr<CreateExpressProjectContext> => {
   return new Listr<CreateExpressProjectContext>(
     [
@@ -72,6 +75,11 @@ const tasksListForCreateExpressProject = (
         title: `Installing dependencies with "npm install" in ./${projectName}...`,
         enabled: (context) => context.yarn === false,
         task: installDependenciesWithNpm,
+      },
+      {
+        title: `Running additional configurations in ./${projectName}...`,
+        enabled: (_) => !config.skipGit,
+        task: runFinalConfigurations,
       },
     ],
     {
@@ -145,6 +153,16 @@ const installDependenciesWithNpm = async (targetDirectory: string) => {
 };
 
 /**
+ * Init git and setup husky for pre-commit hook.
+ * @param {string} targetDirectory - The directory path where the dependencies should be installed.
+ */
+const runFinalConfigurations = async (targetDirectory: string) => {
+  await execa('git', ['init'], { cwd: targetDirectory });
+  await execa('npx', ['husky', 'install'], { cwd: targetDirectory });
+  await execa('npx', ['husky', 'add', '.husky/pre-commit', '"npx lint-staged"'], { cwd: targetDirectory });
+};
+
+/**
  * Creates the express project based on the specified [CreateExpressConfig].
  * @param {CreateExpressConfig} config - Configuration for the Xarvis Express project.
  * @returns {Promise<void>} A Promise that resolves when the project creation is complete.
@@ -169,7 +187,9 @@ export const createExpressProject = async (config: CreateExpressConfig): Promise
     (_, __) => generateProjectFilesTask(templateDirectory, targetDirectory, projectName, projectDescription),
     (context, task) => installDependenciesWithYarn(context, task, targetDirectory),
     (_, __) => installDependenciesWithNpm(targetDirectory),
-    projectName
+    (_, __) => runFinalConfigurations(targetDirectory),
+    projectName,
+    config
   );
 
   try {
@@ -183,14 +203,14 @@ export const createExpressProject = async (config: CreateExpressConfig): Promise
       ? 'https://github.com/thecodexhub/xarvis-express-js#project-setup'
       : 'https://github.com/thecodexhub/xarvis-express-ts#project-setup';
 
-  console.log(`\n${chalk.magenta.bold(`Generated a Xarvis Express app! ✨`)}`);
+  console.info(`\n${chalk.magenta.bold(`Generated a Xarvis Express app! ✨`)}`);
 
-  console.log(`\nNext Steps:`);
-  console.log(`===========`);
-  console.log(`  * Navigate to project folder:    ${chalk.yellow(`cd ./${projectName}`)}`);
-  console.log(`  * Project setup & configuration: ${chalk.cyan(setupDocsLink)}`);
-  console.log(`  * Start the development server:  ${chalk.yellow(`npm run dev`)}`);
+  console.info(`\nNext Steps:`);
+  console.info(`===========`);
+  console.info(`  * Navigate to project folder:    ${chalk.yellow(`cd ./${projectName}`)}`);
+  console.info(`  * Project setup & configuration: ${chalk.cyan(setupDocsLink)}`);
+  console.info(`  * Start the development server:  ${chalk.yellow(`npm run dev`)}`);
 
-  console.log(`\nStay updated: ${chalk.cyan('https://github.com/thecodexhub/xarvis-cli')}`);
-  console.log(`Thanks for using Xarvis!\n`);
+  console.info(`\nStay updated: ${chalk.cyan('https://github.com/thecodexhub/xarvis-cli/releases')}`);
+  console.info(`Thanks for using Xarvis!\n`);
 };
