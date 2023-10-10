@@ -8,6 +8,7 @@ describe('CreateExpressConfig', () => {
     expect(createExpressConfig.outputDirectory).toBeUndefined();
     expect(createExpressConfig.description).toBeUndefined();
     expect(createExpressConfig.template).toBeUndefined();
+    expect(createExpressConfig.skipGit).toBe(false);
   });
 
   it('should have a default description', () => {
@@ -84,41 +85,43 @@ describe('CreateExpressConfig', () => {
 
   describe('toString', () => {
     it('should return the readable format of the instance', () => {
-      const createExpressConfig = new CreateExpressConfig('xarvis', '/path/to/xarvis', 'xarvis-cli', 'javascript');
+      const createExpressConfig = new CreateExpressConfig('xarvis', '/path/to/xarvis', 'xarvis-cli', 'javascript', true);
       expect(createExpressConfig.toString()).toBe(
-        'CreateExpressConfig(projectName: xarvis, outputDirectory: /path/to/xarvis, description: xarvis-cli, template: javascript)'
+        'CreateExpressConfig(projectName: xarvis, outputDirectory: /path/to/xarvis, description: xarvis-cli, template: javascript, skipGit: true)'
       );
     });
   });
 
   describe('copyWith', () => {
     it('returns the same object if no arguments are provided', () => {
-      const createExpressConfig = new CreateExpressConfig('xarvis', '/path/to/xarvis', 'xarvis-cli', 'javascript');
+      const createExpressConfig = new CreateExpressConfig('xarvis', '/path/to/xarvis', 'xarvis-cli', 'javascript', true);
       expect(createExpressConfig.copyWith({})).toStrictEqual(createExpressConfig);
     });
 
     it('returns the same object if every value is passed as undefined', () => {
-      const createExpressConfig = new CreateExpressConfig('xarvis', '/path/to/xarvis', 'xarvis-cli', 'javascript');
+      const createExpressConfig = new CreateExpressConfig('xarvis', '/path/to/xarvis', 'xarvis-cli', 'javascript', true);
       expect(
         createExpressConfig.copyWith({
           projectName: undefined,
           outputDirectory: undefined,
           description: undefined,
           template: undefined,
+          skipGit: undefined,
         })
       ).toStrictEqual(createExpressConfig);
     });
 
     it('returns the new instance with the updated value', () => {
-      const createExpressConfig = new CreateExpressConfig('xarvis', '/path/to/xarvis', 'xarvis-cli', 'javascript');
+      const createExpressConfig = new CreateExpressConfig('xarvis', '/path/to/xarvis', 'xarvis-cli', 'javascript', true);
       expect(
         createExpressConfig.copyWith({
           projectName: 'xarvis 2',
           outputDirectory: '/path/to/xarvis/2',
           description: 'xarvis cli 2',
           template: 'typescript',
+          skipGit: false,
         })
-      ).toStrictEqual(new CreateExpressConfig('xarvis 2', '/path/to/xarvis/2', 'xarvis cli 2', 'typescript'));
+      ).toStrictEqual(new CreateExpressConfig('xarvis 2', '/path/to/xarvis/2', 'xarvis cli 2', 'typescript', false));
     });
   });
 });
