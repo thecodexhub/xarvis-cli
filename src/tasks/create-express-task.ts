@@ -28,7 +28,7 @@ const copyAsync = promisify(ncp);
  * @param {string} projectDescription - The description of the xarvis project.
  * @returns {stream.Transform} A transform stream that replaces placeholders with provided values.
  */
-const transformTemplateWithConfig = (projectName: string, projectDescription: string): stream.Transform => {
+export const transformTemplateWithConfig = (projectName: string, projectDescription: string): stream.Transform => {
   return new stream.Transform({
     transform(chunk, _, callback) {
       let modifiedChunk = chunk.toString('utf8');
