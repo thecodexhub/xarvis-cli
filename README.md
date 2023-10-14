@@ -1,14 +1,14 @@
 # Xarvis CLI
 
 ![Xarvis CLI](https://github.com/thecodexhub/xarvis-cli/actions/workflows/ci.yml/badge.svg)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![npm version](https://badge.fury.io/js/xarvis-cli.svg)](https://www.npmjs.com/package/xarvis-cli)
+[![License: MIT](https://img.shields.io/badge/License-MIT-purple.svg)](https://opensource.org/licenses/MIT)
+[![NPM Version](https://img.shields.io/npm/v/xarvis-cli.svg?style=flat)](https://www.npmjs.com/package/xarvis-cli)
 
 A Command-Line Interface for generating a production-ready starter template.
 
 Developed with 💜 by [thecodexhub](https://github.com/thecodexhub)
 
-<img src="assets/images/recording.gif?raw=true" alt="xarvis cli">
+<img src="assets/images/screenshot.png" alt="xarvis cli">
 
 ## Supported Templates
 
@@ -57,12 +57,13 @@ Options:
   -t, --template          The template for this project. (choices: "javascript", "typescript")
       --description       The description for this new project. (default: "An Express starter project
                           created by Xarvis CLI.")
+      --skip-git          Whether or not to skip initializing git (default: false)
   -h, --help              Display the usage information.
 ```
 
 _Note: The `--template` and `--description` are required. If not provided by the CLI options, questions will be prompted, as shown in the below example._
 
-```
+```shell
 $ xarvis create express-app my-app
 ? Enter the project description: An Express starter project created by Xarvis CLI.
 ? Choose a project template to use: (Use arrow keys)
