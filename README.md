@@ -88,4 +88,23 @@ $ xarvis create express-app -h
 
 The project is released under the [MIT License](LICENSE). Learn more about it, [here](https://opensource.org/license/mit/).
 
-<pre align="center">T h a n k s   f o r   u s i n g   X a r v i s   C L I ! ✨</pre>
+## Xarvis Feature Request
+
+We welcome any ideas or recommendations about how to make the tool better. Unless there is an overwhelming demand for a feature, it might not get implemented.
+
+Before posting, be kind to your surroundings and the authors who take joy in developing new features and writing documentation to help you.
+
+### Create a Feature Request (Issue)
+
+Create an issue including as much information as possible to your proposal. To create an issue -
+
+- Go to the [issues](https://github.com/thecodexhub/xarvis-cli/issues) tab from the project repository.
+- Then click on [new issue](https://github.com/thecodexhub/xarvis-cli/issues/new/choose).
+- You'll have to choose type of the issue. In this case, click on **Get Started** button for the Feature Request type.
+- Fill up the details and **Submit new issue**.
+
+<br/><hr /><br/>
+
+<center>
+💜 Love using Xarvis? Give this repository a star! ⭐
+</center>
