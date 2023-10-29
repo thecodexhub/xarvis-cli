@@ -6,8 +6,6 @@
 
 A Command-Line Interface for generating a production-ready starter template.
 
-Developed with 💜 by [thecodexhub](https://github.com/thecodexhub)
-
 <img src="assets/images/screenshot.png" alt="xarvis cli">
 
 ## Supported Templates
@@ -103,8 +101,18 @@ Create an issue including as much information as possible to your proposal. To c
 - You'll have to choose type of the issue. In this case, click on **Get Started** button for the Feature Request type.
 - Fill up the details and **Submit new issue**.
 
-<br/><hr /><br/>
+---
 
-<center>
-💜 Love using Xarvis? Give this repository a star! ⭐
-</center>
+<p align="center">
+  <a href="https://github.com/thecodexhub">
+    <img width="75px" src="https://avatars.githubusercontent.com/u/56641059?v=4" alt="thecodexhub">
+  </a>
+  <p align="center">
+    Developed and Maintained with 💜 by <a href="https://github.com/thecodexhub">thecodexhub</a>
+  </p>
+  <p align="center">
+    <a href="https://github.com/thecodexhub/xarvis-cli">
+      <img src="https://img.shields.io/github/stars/thecodexhub/xarvis-cli?label=%E2%AD%90%20Star%20this%20repository&color=%23FFBF00" alt="Star this repository">
+    </a>
+  </p>
+</p>
